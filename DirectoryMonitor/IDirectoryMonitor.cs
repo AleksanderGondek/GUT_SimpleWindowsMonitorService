@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace DirectoryMonitor
 {
-    public interface IDirectoryMonitor
+    public interface IDirectoryMonitor : IDisposable
     {
         string DirectoryToWatch { get; set; }
         NotifyFilters ChangesToWatch { get; set; }

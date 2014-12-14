@@ -11,7 +11,7 @@ namespace DirectoryMonitoringService
         {
             var servicesToRun = new ServiceBase[] 
                                           { 
-                                              new DirectoryMonitoringService() 
+                                              new DirectoryMonitoringService()
                                           };
             ServiceBase.Run(servicesToRun);
         }
