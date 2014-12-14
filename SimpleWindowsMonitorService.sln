@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryMonitor", "Directo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorConsoleRunner", "MonitorConsoleRunner\MonitorConsoleRunner.csproj", "{A92438C5-0FA2-48D2-B776-2DE856D23487}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryMonitoringService", "DirectoryMonitoringService\DirectoryMonitoringService.csproj", "{E189D87A-D11F-452D-86E5-E18E86E93CC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A92438C5-0FA2-48D2-B776-2DE856D23487}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A92438C5-0FA2-48D2-B776-2DE856D23487}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A92438C5-0FA2-48D2-B776-2DE856D23487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E189D87A-D11F-452D-86E5-E18E86E93CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E189D87A-D11F-452D-86E5-E18E86E93CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E189D87A-D11F-452D-86E5-E18E86E93CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E189D87A-D11F-452D-86E5-E18E86E93CC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,14 +17,14 @@ namespace DirectoryMonitor
         private string _filetypeToWatch;
         private bool _shouldWatchSubdirectories;
 
-        private ILog _logger;
+        private readonly ILog _logger;
 
         public DirectoryMonitor()
         {
             _logger = LogManager.GetLogger(typeof(DirectoryMonitor));
             log4net.Config.XmlConfigurator.Configure();
 
-            _logger.Debug("DirectoryMonitor consturctor called!");
+            _logger.Debug("DirectoryMonitor constructor called!");
         }
 
         [PermissionSet(SecurityAction.Demand, Name="FullTrust")]
