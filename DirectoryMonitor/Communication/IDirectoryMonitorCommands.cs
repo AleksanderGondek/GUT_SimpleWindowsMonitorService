@@ -11,7 +11,7 @@ namespace DirectoryMonitor.Communication
         string GetStatus();
         [WebGet]
         [OperationContract]
-        string GetDirectoryToWatch();
+        string GetDirectoriesToWatch();
         [WebGet]
         [OperationContract]
         string GetChangesToWatch();

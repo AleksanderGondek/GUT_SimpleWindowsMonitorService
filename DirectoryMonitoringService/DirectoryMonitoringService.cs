@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Linq;
 using System.ServiceProcess;
-using DirectoryMonitor;
+using DirectoryMonitor.MonitorsManager;
 
 namespace DirectoryMonitoringService
 {
     public partial class DirectoryMonitoringService : ServiceBase
     {
-        private readonly IDirectoryMonitor _directoryMonitor;
+        private readonly Manager _directoryMonitor;
 
         public DirectoryMonitoringService()
         {
             InitializeComponent();
-            _directoryMonitor = new DirectoryMonitor.DirectoryMonitor();
+            _directoryMonitor = new Manager();
         }
 
         protected override void OnStart(string[] args)
         {
             if (args.Any())
             {
-                _directoryMonitor.DirectoryToWatch = args.First();
                 _directoryMonitor.FiletypeToWatch = args.ElementAt(1);
                 _directoryMonitor.ShouldWatchSubdirectories = Convert.ToBoolean(args.ElementAt(2));
+                _directoryMonitor.SetWatchedDirectories(args.First());
             }
             else
             {
-                _directoryMonitor.DirectoryToWatch = @"C:\Users";
                 _directoryMonitor.FiletypeToWatch = @"*.*";
                 _directoryMonitor.ShouldWatchSubdirectories = true;
+                _directoryMonitor.SetWatchedDirectories(@"C:\Users");
             }
 
             _directoryMonitor.Start();

@@ -1,43 +1,43 @@
 ﻿using System;
 using DirectoryMonitor.Helpers;
+using DirectoryMonitor.MonitorsManager;
 
 namespace DirectoryMonitor.Communication
 {
     public class DirectoryMonitorCommands : IDirectoryMonitorCommands
     {
-        private readonly IDirectoryMonitor _directoryMonitorRef = DirectoryMonitor.GetSingletonInstance();
+        private readonly Manager _monitorManager = Manager.GetSingletonInstance();
 
         public string GetStatus()
         {
             return string.Format("OK");
         }
 
-        public string GetDirectoryToWatch()
+        public string GetDirectoriesToWatch()
         {
-            return _directoryMonitorRef.DirectoryToWatch;
+            return _monitorManager.GetWatchedDirectories();
         }
 
         public string GetChangesToWatch()
         {
-            return _directoryMonitorRef.ChangesToWatch.ToString();
+            return _monitorManager.ChangesToWatch.ToString();
         }
 
         public string GetFiletypeToWatch()
         {
-            return _directoryMonitorRef.FiletypeToWatch;
+            return _monitorManager.FiletypeToWatch;
         }
 
         public string GetShouldWatchSubdirectories()
         {
-            return Convert.ToString(_directoryMonitorRef.ShouldWatchSubdirectories);
+            return Convert.ToString(_monitorManager.ShouldWatchSubdirectories);
         }
 
         public bool SetDirectoryToWatch(string directory)
         {
             try
             {
-                _directoryMonitorRef.DirectoryToWatch = directory;
-                return true;
+                return _monitorManager.SetWatchedDirectories(directory);
             }
             catch (Exception)
             {
@@ -49,7 +49,7 @@ namespace DirectoryMonitor.Communication
         {
             try
             {
-                _directoryMonitorRef.ChangesToWatch = NotifyFiltersHelper.GetNotifyFiltersFromString(changes);
+                _monitorManager.ChangesToWatch = NotifyFiltersHelper.GetNotifyFiltersFromString(changes);
                 return true;
             }
             catch (Exception)
@@ -62,7 +62,7 @@ namespace DirectoryMonitor.Communication
         {
             try
             {
-                _directoryMonitorRef.FiletypeToWatch = filetype;
+                _monitorManager.FiletypeToWatch = filetype;
                 return true;
             }
             catch (Exception)
@@ -75,10 +75,10 @@ namespace DirectoryMonitor.Communication
         {
             try
             {
-                _directoryMonitorRef.ShouldWatchSubdirectories = Convert.ToBoolean(watchSubdirs);
+                _monitorManager.ShouldWatchSubdirectories = Convert.ToBoolean(watchSubdirs);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

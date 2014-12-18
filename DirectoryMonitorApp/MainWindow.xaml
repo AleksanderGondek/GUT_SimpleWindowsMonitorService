@@ -29,7 +29,7 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="0">
             <Separator Height="18" Visibility="Hidden"/>
-            <TextBox Text="{Binding DirectoryToWatch}" Height="26" VerticalContentAlignment="Center"/>
+            <TextBox Text="{Binding DirectoriesToWatch}" Height="26" VerticalContentAlignment="Center"/>
             <TextBox Text="{Binding FileTypeToWatch}" Height="26" VerticalContentAlignment="Center"/>
             <CheckBox Height="26" IsChecked="{Binding ShouldWatchSubDirs}" VerticalContentAlignment="Center">
                 <TextBlock Text="Watch Subdirs" />

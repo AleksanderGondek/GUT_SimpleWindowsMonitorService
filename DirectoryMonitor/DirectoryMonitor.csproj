@@ -50,6 +50,7 @@
     <Compile Include="DirectoryMonitor.cs" />
     <Compile Include="Helpers\NotifyFiltersHelper.cs" />
     <Compile Include="IDirectoryMonitor.cs" />
+    <Compile Include="MonitorsManager\Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -36,9 +36,9 @@ namespace DirectoryMonitorApp.DirectoryMonitorServiceClient
             }
 
         }
-        public string GetDirectoryToWatch()
+        public string GetDirectoriesToWatch()
         {
-            return _directoryMonitorChannel.GetDirectoryToWatch();
+            return _directoryMonitorChannel.GetDirectoriesToWatch();
         }
         public string GetChangesToWatch()
         {

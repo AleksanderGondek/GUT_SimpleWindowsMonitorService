@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Security.Permissions;
-using DirectoryMonitor.Communication;
 using log4net;
 
 namespace DirectoryMonitor
@@ -20,16 +19,10 @@ namespace DirectoryMonitor
 
         private readonly ILog _logger;
 
-        private readonly CommunicationHandler _communicationsHandler;
-
         public DirectoryMonitor()
         {
-            if (_monitorSingleton == null) _monitorSingleton = this;
             _logger = LogManager.GetLogger(typeof(DirectoryMonitor));
             log4net.Config.XmlConfigurator.Configure();
-
-            _communicationsHandler = new CommunicationHandler();
-            _communicationsHandler.Start();
 
             _logger.Debug("DirectoryMonitor constructor called!");
         }
@@ -41,8 +34,6 @@ namespace DirectoryMonitor
                 _fileSystemWatcher.Dispose();
                 _fileSystemWatcher = null;
             }
-
-            _communicationsHandler.Dispose();
         }
 
         [PermissionSet(SecurityAction.Demand, Name="FullTrust")]
@@ -113,12 +104,6 @@ namespace DirectoryMonitor
             
             Stop();
             Start();
-        }
-
-        private static DirectoryMonitor _monitorSingleton;
-        public static IDirectoryMonitor GetSingletonInstance()
-        {
-            return _monitorSingleton as IDirectoryMonitor;
         }
     }
 }

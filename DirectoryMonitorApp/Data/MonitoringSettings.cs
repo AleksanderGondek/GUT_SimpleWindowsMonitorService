@@ -13,7 +13,7 @@ namespace DirectoryMonitorApp.Data
         private DmsClient _dmsClient;
 
         private bool _status;
-        private string _directoryToWatch;
+        private string _directoriesToWatch;
         private IList<string> _changesToWatch;
         private string _fileTypeToWatch;
         private bool _shouldWatchSubDirs;
@@ -39,8 +39,8 @@ namespace DirectoryMonitorApp.Data
             OnPropertyChanged("Status");
             if (!Status) return;
 
-            _directoryToWatch = _dmsClient.GetDirectoryToWatch();
-            OnPropertyChanged("DirectoryToWatch");
+            _directoriesToWatch = _dmsClient.GetDirectoriesToWatch();
+            OnPropertyChanged("DirectoriesToWatch");
             _changesToWatch = _dmsClient.GetChangesToWatch().Split(',').Select(x => x.Trim()).ToList();
             OnPropertyChanged("ChangesToWatch");
             SetUpMonitorFlags();
@@ -61,15 +61,15 @@ namespace DirectoryMonitorApp.Data
             }
         }
 
-        public string DirectoryToWatch
+        public string DirectoriesToWatch
         {
-            get { return _directoryToWatch; }
+            get { return _directoriesToWatch; }
             set
             {
                 if (_dmsClient.SetDirectoryToWatch(value))
                 {
-                    OnPropertyChanged("DirectoryToWatch");
-                    _directoryToWatch = value;
+                    OnPropertyChanged("DirectoriesToWatch");
+                    _directoriesToWatch = value;
                 }
             }
         }
