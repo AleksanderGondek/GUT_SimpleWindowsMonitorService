@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         DataContext="{StaticResource MonitoringSettings}"
         FontFamily="Segoe UI Light"
-        Title="DirectoryMonitor App" Height="440" Width="525" ResizeMode="NoResize">
+        Title="DirectoryMonitor App" Height="520" Width="525" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"></ColumnDefinition>
@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0.8*"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10,0,0,0">
             <Label Content="Monitoring Service Is Online:"></Label>
@@ -65,5 +66,13 @@
                 <TextBlock Text="MonitorSize" />
             </CheckBox>
         </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="2">
+            <Label Content="Stop monitoring" HorizontalContentAlignment="Center"></Label>
+            <Label Content="Start monitoring" HorizontalContentAlignment="Center"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <Button Content="Stop" Height="26" Click="Button_Click_2"></Button>
+            <Button Content="Start" Height="26" Click="Button_Click_3"></Button>
+        </StackPanel>        
     </Grid>
 </Window>

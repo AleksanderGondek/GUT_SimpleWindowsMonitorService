@@ -34,5 +34,12 @@ namespace DirectoryMonitor.Communication
         [WebGet]
         [OperationContract]
         bool SetShouldWatchSubdirectories(string watchSubdirs);
+
+        [WebGet]
+        [OperationContract]
+        bool Start();
+        [WebGet]
+        [OperationContract]
+        bool Stop();
     }
 }

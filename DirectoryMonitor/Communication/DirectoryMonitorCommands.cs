@@ -83,5 +83,31 @@ namespace DirectoryMonitor.Communication
                 return false;
             }
         }
+
+        public bool Start()
+        {
+            try
+            {
+                _monitorManager.Start();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool Stop()
+        {
+            try
+            {
+                _monitorManager.Stop();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

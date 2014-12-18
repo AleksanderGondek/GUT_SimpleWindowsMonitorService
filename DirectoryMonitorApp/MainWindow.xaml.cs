@@ -42,5 +42,15 @@ namespace DirectoryMonitorApp
             _monitoringSettings.DirectoriesToWatch.Remove(selectedDir);
             _monitoringSettings.DirectoriesToWatch = _monitoringSettings.DirectoriesToWatch.Select(item => (string)item.Clone()).ToList();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            _monitoringSettings.Stop();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            _monitoringSettings.Start();
+        }
     }
 }

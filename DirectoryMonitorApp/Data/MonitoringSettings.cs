@@ -50,6 +50,16 @@ namespace DirectoryMonitorApp.Data
             OnPropertyChanged("ShouldWatchSubDirs");
         }
 
+        public void Start()
+        {
+            _dmsClient.Start();
+        }
+
+        public void Stop()
+        {
+            _dmsClient.Stop();
+        }
+
 
         public bool Status
         {

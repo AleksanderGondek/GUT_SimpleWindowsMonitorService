@@ -69,6 +69,16 @@ namespace DirectoryMonitorApp.DirectoryMonitorServiceClient
             return _directoryMonitorChannel.SetShouldWatchSubdirectories(watchSubdirs);
         }
 
+        public bool Start()
+        {
+            return _directoryMonitorChannel.Start();
+        }
+
+        public bool Stop()
+        {
+            return _directoryMonitorChannel.Stop();
+        }
+
         public void Dispose()
         {
             _directoryMonitorChannel = null;
