@@ -3,27 +3,62 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         DataContext="{StaticResource MonitoringSettings}"
         FontFamily="Segoe UI Light"
-        Title="DirectoryMonitor App" Height="350" Width="525">
+        Title="DirectoryMonitor App" Height="400" Width="525" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="0.8*"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Monitoring Service Is Online:"></Label>
+            <Label Content="{Binding Status}" FontWeight="Bold" Foreground="#FF174087"></Label>
+        </StackPanel>
+        <Button Grid.Column="1" Grid.Row="0" Content="Retry connection" Click="ButtonBase_OnClick"/>
         <StackPanel Grid.Column="0" Grid.Row="1">
-            <Label Content="Directory watched"></Label>
-            <Label Content="File type filter"></Label>
-            <Label Content="Should watch subdirectories"></Label>
-            <Label Content="Changes to watch for"></Label>
+            <Separator Height="18" Visibility="Hidden"/>
+            <Label Content="Directory watched" HorizontalContentAlignment="Center"></Label>
+            <Label Content="File type filter" HorizontalContentAlignment="Center"></Label>
+            <Label Content="Should watch subdirectories" HorizontalContentAlignment="Center"/>
+            <Separator Height="18" Visibility="Hidden"/>
+            <Label Content="Changes to watch for" HorizontalContentAlignment="Center"></Label>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="0">
+            <Separator Height="18" Visibility="Hidden"/>
             <TextBox Text="{Binding DirectoryToWatch}" Height="26" VerticalContentAlignment="Center"/>
             <TextBox Text="{Binding FileTypeToWatch}" Height="26" VerticalContentAlignment="Center"/>
-            <TextBox Text="{Binding ShouldWatchSubDirs}" Height="26" VerticalContentAlignment="Center"/>
+            <CheckBox Height="26" IsChecked="{Binding ShouldWatchSubDirs}" VerticalContentAlignment="Center">
+                <TextBlock Text="Watch Subdirs" />
+            </CheckBox>
+            <Separator Height="26"/>
+            <CheckBox Height="26" IsChecked="{Binding MonitorAttributes}">
+                <TextBlock Text="MonitorAttributes" />
+            </CheckBox>
+            <CheckBox Height="26" IsChecked="{Binding MonitorCreationTime}">
+                <TextBlock Text="MonitorCreationTime" />
+            </CheckBox>
+            <CheckBox Height="26" IsChecked="{Binding MonitorDirectoryName}">
+                <TextBlock Text="MonitorDirectoryName" />
+            </CheckBox>
+            <CheckBox Height="26" IsChecked="{Binding MonitorFileName}">
+                <TextBlock Text="MonitorFileName" />
+            </CheckBox>
+            <CheckBox Height="26" IsChecked="{Binding MonitorLastAccess}">
+                <TextBlock Text="MonitorLastAccess" />
+            </CheckBox>
+            <CheckBox Height="26" IsChecked="{Binding MonitorLastWrite}">
+                <TextBlock Text="MonitorLastWrite" />
+            </CheckBox>
+            <CheckBox Height="26" IsChecked="{Binding MonitorSecurity}">
+                <TextBlock Text="MonitorSecurity" />
+            </CheckBox>
+            <CheckBox Height="26" IsChecked="{Binding MonitorSize}">
+                <TextBlock Text="MonitorSize" />
+            </CheckBox>
         </StackPanel>
     </Grid>
 </Window>

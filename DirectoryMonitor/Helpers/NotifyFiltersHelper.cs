@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace DirectoryMonitor.Helpers
 {
@@ -9,7 +10,7 @@ namespace DirectoryMonitor.Helpers
             var result = new NotifyFilters();
             if(string.IsNullOrEmpty(values)) return result;
 
-            foreach (var value in values.Split(','))
+            foreach (var value in values.Split(',').Select(x => x.Trim()).ToList())
             {
                 switch(value)
                 {

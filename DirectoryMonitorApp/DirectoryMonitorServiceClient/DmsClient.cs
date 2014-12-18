@@ -26,7 +26,15 @@ namespace DirectoryMonitorApp.DirectoryMonitorServiceClient
 
         public string GetStatus()
         {
-            return _directoryMonitorChannel.GetStatus();
+            try
+            {
+                return _directoryMonitorChannel.GetStatus();
+            }
+            catch (Exception)
+            {
+                return @"OFFLINE";
+            }
+
         }
         public string GetDirectoryToWatch()
         {

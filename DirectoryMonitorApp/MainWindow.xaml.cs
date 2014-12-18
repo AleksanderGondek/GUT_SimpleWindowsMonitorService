@@ -18,5 +18,10 @@ namespace DirectoryMonitorApp
                 _monitoringSettings.GetData();
             }
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            _monitoringSettings.GetData();
+        }
     }
 }

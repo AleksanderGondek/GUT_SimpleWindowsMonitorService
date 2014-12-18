@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using DirectoryMonitorApp.DirectoryMonitorServiceClient;
 
 namespace DirectoryMonitorApp.Data
@@ -37,9 +36,12 @@ namespace DirectoryMonitorApp.Data
             }
 
             Status = @"OK".Equals(_dmsClient.GetStatus());
+            OnPropertyChanged("Status");
+            if (!Status) return;
+
             _directoryToWatch = _dmsClient.GetDirectoryToWatch();
             OnPropertyChanged("DirectoryToWatch");
-            _changesToWatch = _dmsClient.GetChangesToWatch().Split(',').ToList();
+            _changesToWatch = _dmsClient.GetChangesToWatch().Split(',').Select(x => x.Trim()).ToList();
             OnPropertyChanged("ChangesToWatch");
             SetUpMonitorFlags();
             _fileTypeToWatch = _dmsClient.GetFiletypeToWatch();
@@ -116,15 +118,17 @@ namespace DirectoryMonitorApp.Data
             get { return _monitorAttributes; }
             set
             {
-                OnPropertyChanged("MonitorAttributes");
                 _monitorAttributes = value;
+                OnPropertyChanged("MonitorAttributes");
                 if (value && !ChangesToWatch.Contains(@"Attributes"))
                 {
                     ChangesToWatch.Add(@"Attributes");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
                 else if(!value && ChangesToWatch.Contains(@"Attributes"))
                 {
                     ChangesToWatch.Remove(@"Attributes");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
             }
         }
@@ -134,15 +138,17 @@ namespace DirectoryMonitorApp.Data
             get { return _monitorCreationTime; }
             set
             {
-                OnPropertyChanged("MonitorCreationTime");
                 _monitorCreationTime = value;
+                OnPropertyChanged("MonitorCreationTime");
                 if (value && !ChangesToWatch.Contains(@"CreationTime"))
                 {
                     ChangesToWatch.Add(@"CreationTime");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
                 else if(!value && ChangesToWatch.Contains(@"CreationTime"))
                 {
                     ChangesToWatch.Remove(@"CreationTime");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
             }
         }
@@ -151,15 +157,17 @@ namespace DirectoryMonitorApp.Data
             get { return _monitorDirectoryName; }
             set
             {
-                OnPropertyChanged("MonitorDirectoryName");
                 _monitorDirectoryName = value;
+                OnPropertyChanged("MonitorDirectoryName");
                 if (value && !ChangesToWatch.Contains(@"DirectoryName"))
                 {
                     ChangesToWatch.Add(@"DirectoryName");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
                 else if(!value && ChangesToWatch.Contains(@"DirectoryName"))
                 {
                     ChangesToWatch.Remove(@"DirectoryName");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
             }
         }
@@ -168,15 +176,17 @@ namespace DirectoryMonitorApp.Data
             get { return _monitorFileName; }
             set
             {
-                OnPropertyChanged("MonitorFileName");
                 _monitorFileName = value;
+                OnPropertyChanged("MonitorFileName");
                 if (value && !ChangesToWatch.Contains(@"FileName"))
                 {
                     ChangesToWatch.Add(@"FileName");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
                 else if(!value && ChangesToWatch.Contains(@"FileName"))
                 {
                     ChangesToWatch.Remove(@"FileName");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
             }
         }
@@ -185,15 +195,17 @@ namespace DirectoryMonitorApp.Data
             get { return _monitorLastAccess; }
             set
             {
-                OnPropertyChanged("MonitorLastAccess");
                 _monitorLastAccess = value;
+                OnPropertyChanged("MonitorLastAccess");
                 if (value && !ChangesToWatch.Contains(@"LastAccess"))
                 {
                     ChangesToWatch.Add(@"LastAccess");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
                 else if(!value && ChangesToWatch.Contains(@"LastAccess"))
                 {
                     ChangesToWatch.Remove(@"LastAccess");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
             }
         }
@@ -202,15 +214,17 @@ namespace DirectoryMonitorApp.Data
             get { return _monitorLastWrite; }
             set
             {
-                OnPropertyChanged("MonitorLastWrite");
                 _monitorLastWrite = value;
+                OnPropertyChanged("MonitorLastWrite");
                 if (value && !ChangesToWatch.Contains(@"LastWrite"))
                 {
                     ChangesToWatch.Add(@"LastWrite");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
                 else if(!value && ChangesToWatch.Contains(@"LastWrite"))
                 {
                     ChangesToWatch.Remove(@"LastWrite");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
             }
         }
@@ -219,15 +233,17 @@ namespace DirectoryMonitorApp.Data
             get { return _monitorSecurity; }
             set
             {
-                OnPropertyChanged("MonitorSecurity");
                 _monitorSecurity = value;
+                OnPropertyChanged("MonitorSecurity");
                 if (value && !ChangesToWatch.Contains(@"Security"))
                 {
                     ChangesToWatch.Add(@"Security");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
                 else if(!value && ChangesToWatch.Contains(@"Security"))
                 {
                     ChangesToWatch.Remove(@"Security");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
             }
         }
@@ -236,15 +252,17 @@ namespace DirectoryMonitorApp.Data
             get { return _monitorSize; }
             set
             {
-                OnPropertyChanged("MonitorSize");
                 _monitorSize = value;
+                OnPropertyChanged("MonitorSize");
                 if (value && !ChangesToWatch.Contains(@"Size"))
                 {
                     ChangesToWatch.Add(@"Size");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
                 else if(!value && ChangesToWatch.Contains(@"Size"))
                 {
                     ChangesToWatch.Remove(@"Size");
+                    ChangesToWatch = ChangesToWatch.Select(item => (string)item.Clone()).ToList();
                 }
             }
         }
