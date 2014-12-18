@@ -13,7 +13,7 @@ namespace DirectoryMonitorApp.Data
         private DmsClient _dmsClient;
 
         private bool _status;
-        private string _directoriesToWatch;
+        private IList<string> _directoriesToWatch;
         private IList<string> _changesToWatch;
         private string _fileTypeToWatch;
         private bool _shouldWatchSubDirs;
@@ -39,7 +39,7 @@ namespace DirectoryMonitorApp.Data
             OnPropertyChanged("Status");
             if (!Status) return;
 
-            _directoriesToWatch = _dmsClient.GetDirectoriesToWatch();
+            _directoriesToWatch = _dmsClient.GetDirectoriesToWatch().Split(',').Select(x => x.Trim()).ToList();
             OnPropertyChanged("DirectoriesToWatch");
             _changesToWatch = _dmsClient.GetChangesToWatch().Split(',').Select(x => x.Trim()).ToList();
             OnPropertyChanged("ChangesToWatch");
@@ -61,15 +61,15 @@ namespace DirectoryMonitorApp.Data
             }
         }
 
-        public string DirectoriesToWatch
+        public IList<string> DirectoriesToWatch
         {
             get { return _directoriesToWatch; }
             set
             {
-                if (_dmsClient.SetDirectoryToWatch(value))
+                if (_dmsClient.SetDirectoryToWatch(string.Join(",", value)))
                 {
-                    OnPropertyChanged("DirectoriesToWatch");
                     _directoriesToWatch = value;
+                    OnPropertyChanged("DirectoriesToWatch");
                 }
             }
         }
@@ -81,8 +81,8 @@ namespace DirectoryMonitorApp.Data
             {
                 if (_dmsClient.SetChangesToWatch(string.Join(",",value)))
                 {
-                    OnPropertyChanged("ChangesToWatch");
                     _changesToWatch = value;
+                    OnPropertyChanged("ChangesToWatch");
                 }
             }
         }
@@ -94,8 +94,8 @@ namespace DirectoryMonitorApp.Data
             {
                 if (_dmsClient.SetFiletypeToWatch(value))
                 {
-                    OnPropertyChanged("FileTypeToWatch");
                     _fileTypeToWatch = value;
+                    OnPropertyChanged("FileTypeToWatch");
                 }
             }
         }
@@ -107,8 +107,8 @@ namespace DirectoryMonitorApp.Data
             {
                 if (_dmsClient.SetShouldWatchSubdirectories(Convert.ToString(value)))
                 {
-                    OnPropertyChanged("ShouldWatchSubDirs");
                     _shouldWatchSubDirs = value;
+                    OnPropertyChanged("ShouldWatchSubDirs");
                 }
             }
         }

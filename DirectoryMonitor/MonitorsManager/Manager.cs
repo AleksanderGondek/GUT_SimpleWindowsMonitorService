@@ -48,13 +48,15 @@ namespace DirectoryMonitor.MonitorsManager
                 {
                     if (!_monitors.ContainsKey(directory))
                     {
-                        _monitors.Add(directory, new DirectoryMonitor
-                        {
-                            DirectoryToWatch = directory,
-                            FiletypeToWatch = FiletypeToWatch,
-                            ChangesToWatch = ChangesToWatch,
-                            ShouldWatchSubdirectories = ShouldWatchSubdirectories
-                        });
+                        var newMonitor = new DirectoryMonitor
+                                         {
+                                             DirectoryToWatch = directory,
+                                             FiletypeToWatch = FiletypeToWatch,
+                                             ChangesToWatch = ChangesToWatch,
+                                             ShouldWatchSubdirectories = ShouldWatchSubdirectories
+                                         };
+                        _monitors.Add(directory, newMonitor);
+                        newMonitor.Start();
                     }
                 }
 
