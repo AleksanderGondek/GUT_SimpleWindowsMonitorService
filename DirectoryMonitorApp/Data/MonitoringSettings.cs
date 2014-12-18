@@ -1,33 +1,63 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading;
 using DirectoryMonitorApp.DirectoryMonitorServiceClient;
 
 namespace DirectoryMonitorApp.Data
 {
-    internal class MonitoringSettings
+    internal class MonitoringSettings : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private DmsClient _dmsClient;
 
+        private bool _status;
         private string _directoryToWatch;
-        private string[] _changesToWatch;
+        private IList<string> _changesToWatch;
         private string _fileTypeToWatch;
         private bool _shouldWatchSubDirs;
 
-        public bool Status { get; private set; }
+        private bool _monitorAttributes;
+        private bool _monitorCreationTime;
+        private bool _monitorDirectoryName;
+        private bool _monitorFileName;
+        private bool _monitorLastAccess;
+        private bool _monitorLastWrite;
+        private bool _monitorSecurity;
+        private bool _monitorSize;
 
         public void GetData()
         {
             if (_dmsClient == null)
             {
                 _dmsClient = new DmsClient();
+                _dmsClient.Connect();
             }
 
             Status = @"OK".Equals(_dmsClient.GetStatus());
             _directoryToWatch = _dmsClient.GetDirectoryToWatch();
-            _changesToWatch = _dmsClient.GetChangesToWatch().Split(',');
+            OnPropertyChanged("DirectoryToWatch");
+            _changesToWatch = _dmsClient.GetChangesToWatch().Split(',').ToList();
+            OnPropertyChanged("ChangesToWatch");
+            SetUpMonitorFlags();
             _fileTypeToWatch = _dmsClient.GetFiletypeToWatch();
+            OnPropertyChanged("FileTypeToWatch");
             _shouldWatchSubDirs = Convert.ToBoolean(_dmsClient.GetShouldWatchSubdirectories());
+            OnPropertyChanged("ShouldWatchSubDirs");
         }
 
+
+        public bool Status
+        {
+            get { return _status; }
+            set
+            {
+                OnPropertyChanged("Status");
+                _status = value;
+            }
+        }
 
         public string DirectoryToWatch
         {
@@ -36,18 +66,20 @@ namespace DirectoryMonitorApp.Data
             {
                 if (_dmsClient.SetDirectoryToWatch(value))
                 {
+                    OnPropertyChanged("DirectoryToWatch");
                     _directoryToWatch = value;
                 }
             }
         }
 
-        public string[] ChangesToWatch
+        public IList<string> ChangesToWatch
         {
             get { return _changesToWatch; }
             set
             {
                 if (_dmsClient.SetChangesToWatch(string.Join(",",value)))
                 {
+                    OnPropertyChanged("ChangesToWatch");
                     _changesToWatch = value;
                 }
             }
@@ -60,6 +92,7 @@ namespace DirectoryMonitorApp.Data
             {
                 if (_dmsClient.SetFiletypeToWatch(value))
                 {
+                    OnPropertyChanged("FileTypeToWatch");
                     _fileTypeToWatch = value;
                 }
             }
@@ -72,7 +105,188 @@ namespace DirectoryMonitorApp.Data
             {
                 if (_dmsClient.SetShouldWatchSubdirectories(Convert.ToString(value)))
                 {
+                    OnPropertyChanged("ShouldWatchSubDirs");
                     _shouldWatchSubDirs = value;
+                }
+            }
+        }
+
+        public bool MonitorAttributes
+        {
+            get { return _monitorAttributes; }
+            set
+            {
+                OnPropertyChanged("MonitorAttributes");
+                _monitorAttributes = value;
+                if (value && !ChangesToWatch.Contains(@"Attributes"))
+                {
+                    ChangesToWatch.Add(@"Attributes");
+                }
+                else if(!value && ChangesToWatch.Contains(@"Attributes"))
+                {
+                    ChangesToWatch.Remove(@"Attributes");
+                }
+            }
+        }
+
+        public bool MonitorCreationTime
+        {
+            get { return _monitorCreationTime; }
+            set
+            {
+                OnPropertyChanged("MonitorCreationTime");
+                _monitorCreationTime = value;
+                if (value && !ChangesToWatch.Contains(@"CreationTime"))
+                {
+                    ChangesToWatch.Add(@"CreationTime");
+                }
+                else if(!value && ChangesToWatch.Contains(@"CreationTime"))
+                {
+                    ChangesToWatch.Remove(@"CreationTime");
+                }
+            }
+        }
+        public bool MonitorDirectoryName
+        {
+            get { return _monitorDirectoryName; }
+            set
+            {
+                OnPropertyChanged("MonitorDirectoryName");
+                _monitorDirectoryName = value;
+                if (value && !ChangesToWatch.Contains(@"DirectoryName"))
+                {
+                    ChangesToWatch.Add(@"DirectoryName");
+                }
+                else if(!value && ChangesToWatch.Contains(@"DirectoryName"))
+                {
+                    ChangesToWatch.Remove(@"DirectoryName");
+                }
+            }
+        }
+        public bool MonitorFileName
+        {
+            get { return _monitorFileName; }
+            set
+            {
+                OnPropertyChanged("MonitorFileName");
+                _monitorFileName = value;
+                if (value && !ChangesToWatch.Contains(@"FileName"))
+                {
+                    ChangesToWatch.Add(@"FileName");
+                }
+                else if(!value && ChangesToWatch.Contains(@"FileName"))
+                {
+                    ChangesToWatch.Remove(@"FileName");
+                }
+            }
+        }
+        public bool MonitorLastAccess
+        {
+            get { return _monitorLastAccess; }
+            set
+            {
+                OnPropertyChanged("MonitorLastAccess");
+                _monitorLastAccess = value;
+                if (value && !ChangesToWatch.Contains(@"LastAccess"))
+                {
+                    ChangesToWatch.Add(@"LastAccess");
+                }
+                else if(!value && ChangesToWatch.Contains(@"LastAccess"))
+                {
+                    ChangesToWatch.Remove(@"LastAccess");
+                }
+            }
+        }
+        public bool MonitorLastWrite
+        {
+            get { return _monitorLastWrite; }
+            set
+            {
+                OnPropertyChanged("MonitorLastWrite");
+                _monitorLastWrite = value;
+                if (value && !ChangesToWatch.Contains(@"LastWrite"))
+                {
+                    ChangesToWatch.Add(@"LastWrite");
+                }
+                else if(!value && ChangesToWatch.Contains(@"LastWrite"))
+                {
+                    ChangesToWatch.Remove(@"LastWrite");
+                }
+            }
+        }
+        public bool MonitorSecurity
+        {
+            get { return _monitorSecurity; }
+            set
+            {
+                OnPropertyChanged("MonitorSecurity");
+                _monitorSecurity = value;
+                if (value && !ChangesToWatch.Contains(@"Security"))
+                {
+                    ChangesToWatch.Add(@"Security");
+                }
+                else if(!value && ChangesToWatch.Contains(@"Security"))
+                {
+                    ChangesToWatch.Remove(@"Security");
+                }
+            }
+        }
+        public bool MonitorSize
+        {
+            get { return _monitorSize; }
+            set
+            {
+                OnPropertyChanged("MonitorSize");
+                _monitorSize = value;
+                if (value && !ChangesToWatch.Contains(@"Size"))
+                {
+                    ChangesToWatch.Add(@"Size");
+                }
+                else if(!value && ChangesToWatch.Contains(@"Size"))
+                {
+                    ChangesToWatch.Remove(@"Size");
+                }
+            }
+        }
+
+        public void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
+        }
+
+        private void SetUpMonitorFlags()
+        {
+            foreach (var filter in ChangesToWatch)
+            {
+                switch (filter)
+                {
+                    case @"Attributes":
+                        MonitorAttributes = true;
+                        break;
+                    case @"CreationTime":
+                        MonitorCreationTime = true;
+                        break;
+                    case @"DirectoryName":
+                        MonitorDirectoryName = true;
+                        break;
+                    case @"FileName":
+                        MonitorFileName = true;
+                        break;
+                    case @"LastAccess":
+                        MonitorLastAccess = true;
+                        break;
+                    case @"LastWrite":
+                        MonitorLastWrite = true;
+                        break;
+                    case @"Security":
+                        MonitorSecurity = true;
+                        break;
+                    case @"Size":
+                        MonitorSize = true;
+                        break;
                 }
             }
         }

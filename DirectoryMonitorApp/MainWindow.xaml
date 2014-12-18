@@ -1,8 +1,29 @@
 ﻿<Window x:Class="DirectoryMonitorApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        DataContext="{StaticResource MonitoringSettings}"
+        FontFamily="Segoe UI Light"
+        Title="DirectoryMonitor App" Height="350" Width="525">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Label Content="Directory watched"></Label>
+            <Label Content="File type filter"></Label>
+            <Label Content="Should watch subdirectories"></Label>
+            <Label Content="Changes to watch for"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="0">
+            <TextBox Text="{Binding DirectoryToWatch}" Height="26" VerticalContentAlignment="Center"/>
+            <TextBox Text="{Binding FileTypeToWatch}" Height="26" VerticalContentAlignment="Center"/>
+            <TextBox Text="{Binding ShouldWatchSubDirs}" Height="26" VerticalContentAlignment="Center"/>
+        </StackPanel>
     </Grid>
 </Window>

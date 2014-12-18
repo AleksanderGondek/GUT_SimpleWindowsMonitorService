@@ -1,8 +1,9 @@
 ﻿<Application x:Class="DirectoryMonitorApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dmcSettings="clr-namespace:DirectoryMonitorApp.Data"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <dmcSettings:MonitoringSettings x:Key="MonitoringSettings"></dmcSettings:MonitoringSettings>
     </Application.Resources>
 </Application>
